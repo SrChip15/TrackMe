@@ -37,6 +37,17 @@ public class EditorActivity extends AppCompatActivity {
 
 		// Setup access to db
 		mDbHelper = new HabitDbHelper(EditorActivity.this);
+
+		// Find activity trigger type
+		String qualifier = getIntent().getStringExtra("triggerType");
+
+		// Check for existing qualifier
+		if (qualifier != null && qualifier.equals("existingHabit")) {
+			// Existing habit click has triggered the activity
+			// Get habit data from intent and set text
+			mHabitDesc.setText(getIntent().getStringExtra("habitDesc"));
+			mHabitDays.setText(getIntent().getStringExtra("daysCompleted"));
+		}
 	}
 
 	public void saveHabit(View view) {
@@ -55,7 +66,7 @@ public class EditorActivity extends AppCompatActivity {
 		// Insert record into database
 		long rowId = db.insert(HabitEntry.TABLE_NAME, null, values);
 
-		// Check on success of recored insertion into table
+		// Check on success of record insertion into table
 		if (rowId == -1) {
 			Toast.makeText
 					(

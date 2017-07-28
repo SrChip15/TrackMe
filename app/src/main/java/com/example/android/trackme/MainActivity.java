@@ -5,25 +5,45 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.trackme.data.HabitContract.HabitEntry;
 import com.example.android.trackme.data.HabitDbHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
 	private HabitDbHelper mDbHelper;
-	private TextView mPrimaryView;
+	private List<Habit> mHabitsList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Primary text view hookup
-		mPrimaryView = (TextView) findViewById(R.id.primary_view);
+		// Empty text view hookup
+		TextView mEmptyView = (TextView) findViewById(R.id.empty_view);
+		// Set text for empty view
+		mEmptyView.setText(R.string.empty_view_text);
+		// Position text
+		mEmptyView.setGravity(Gravity.CENTER);
+		// Dim the background color
+		mEmptyView.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.empty_view_dim));
+
+		// To access our database, we instantiate our subclass of SQLiteOpenHelper
+		// and pass the context, which is the current activity.
+		mDbHelper = new HabitDbHelper(MainActivity.this);
+
+		// Initialize list
+		mHabitsList = new ArrayList<>();
+		makeHabitsList();
 
 		// Setup FAB to open EditorActivity
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -35,24 +55,20 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		// To access our database, we instantiate our subclass of SQLiteOpenHelper
-		// and pass the context, which is the current activity.
-		mDbHelper = new HabitDbHelper(MainActivity.this);
+		// Get the list view
+		ListView listView = (ListView) findViewById(R.id.list);
+
+		// Initialize adapter
+		HabitListAdapter adapter = new HabitListAdapter(MainActivity.this, mHabitsList);
+
+		// Set adapter for list view
+		listView.setAdapter(adapter);
+
+		// Set empty view when there are no habits
+		listView.setEmptyView(mEmptyView);
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		displayDatabaseInfo();
-		/*if (mPrimaryView.getText() == "") {
-			mPrimaryView.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.empty_view_dim));
-			mPrimaryView.setGravity(Gravity.CENTER);
-			mPrimaryView.setText("You can do this. Add habits to get started.");
-		}*/
-
-	}
-
-	private void displayDatabaseInfo() {
+	Cursor readFromDatabase() {
 		// Get readable instance of the database
 		SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -73,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
 				null                                       // The sort order
 		);
 
+		// Return fetched cursor
+		return cursor;
+	}
+
+	private void makeHabitsList() {
+		Cursor cursor = readFromDatabase();
 		try {
-			mPrimaryView.setText("The habit table contains " + cursor.getCount() + " habits\n\n");
-
-			// Create table headers
-			mPrimaryView.append(HabitEntry.COLUMN_HABIT_DESC + " - " +
-					HabitEntry.COLUMN_COMPLETED_DAYS + "\n");
-
 			// Get column index
 			int descColumnIndex = cursor.getColumnIndex(HabitEntry.COLUMN_HABIT_DESC);
 			int daysCompletedColumnIndex = cursor.getColumnIndex(HabitEntry.COLUMN_COMPLETED_DAYS);
@@ -90,10 +106,8 @@ public class MainActivity extends AppCompatActivity {
 				String currentHabitDesc = cursor.getString(descColumnIndex);
 				int currentHabitDaysCompleted = cursor.getInt(daysCompletedColumnIndex);
 
-				// Display extracted information in primary view
-				mPrimaryView.append("\n" + currentHabitDesc + " - " +
-						currentHabitDaysCompleted);
-
+				// Add habit to list
+				mHabitsList.add(new Habit(currentHabitDesc, currentHabitDaysCompleted));
 			}
 		} finally {
 			// Close the cursor and release resources associated with the cursor
