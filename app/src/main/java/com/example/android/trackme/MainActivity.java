@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 				HabitEntry.COLUMN_COMPLETED_DAYS
 		};
 
+		// Perform a query on the habits table
 		Cursor cursor = db.query(
 				HabitEntry.TABLE_NAME,                     // The table to query
 				projection,                                // The columns to return

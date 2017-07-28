@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,9 +17,9 @@ public class EditorActivity extends AppCompatActivity {
 
 	private EditText mHabitDesc;
 	private EditText mHabitDays;
-	private Button mHabitDaysIncrement;
+	/*private Button mHabitDaysIncrement;
 	private Button mHabitDaysDecrement;
-	private Button mDeleteHabit;
+	private Button mDeleteHabit;*/
 	private HabitDbHelper mDbHelper;
 
 	@Override
@@ -31,9 +30,9 @@ public class EditorActivity extends AppCompatActivity {
 		// Find all relevant views that we will need to read user input from
 		mHabitDesc = (EditText) findViewById(R.id.edit_habit_desc);
 		mHabitDays = (EditText) findViewById(R.id.days_from_db_text);
-		mHabitDaysIncrement = (Button) findViewById(R.id.plus_button);
+		/*mHabitDaysIncrement = (Button) findViewById(R.id.plus_button);
 		mHabitDaysDecrement = (Button) findViewById(R.id.minus_button);
-		mDeleteHabit = (Button) findViewById(R.id.delete_button);
+		mDeleteHabit = (Button) findViewById(R.id.delete_button);*/
 
 		// Setup access to db
 		mDbHelper = new HabitDbHelper(EditorActivity.this);
@@ -41,7 +40,7 @@ public class EditorActivity extends AppCompatActivity {
 		// Find activity trigger type
 		String qualifier = getIntent().getStringExtra("triggerType");
 
-		// Check for existing qualifier
+		// Check for existing habit qualifier
 		if (qualifier != null && qualifier.equals("existingHabit")) {
 			// Existing habit click has triggered the activity
 			// Get habit data from intent and set text
@@ -112,5 +111,34 @@ public class EditorActivity extends AppCompatActivity {
 
 		// Set revised habit days completed as user input
 		mHabitDays.setText(String.valueOf(habitDays));
+	}
+
+	public void deleteHabit(View view) {
+		// Find activity trigger type
+		String qualifier = getIntent().getStringExtra("triggerType");
+		String targetHabit = "";
+
+		// Check for existing habit qualifier
+		if (qualifier != null && qualifier.equals("existingHabit")) {
+			// Existing habit click has triggered the activity
+			targetHabit = (getIntent().getStringExtra("habitDesc"));
+		}
+
+		// Get writable instance of the database to delete the habit
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+		// Define 'where' part of query
+		String selection = HabitEntry.COLUMN_HABIT_DESC + " LIKE ?";
+
+		// Specify arguments in placeholder order.
+		String[] selectionArgs = { targetHabit };
+
+		// Issue SQL statement.
+		db.delete(HabitEntry.TABLE_NAME, selection, selectionArgs);
+
+		// Intent to home
+		Intent intent = new Intent(EditorActivity.this, MainActivity.class);
+		startActivity(intent);
+
 	}
 }
