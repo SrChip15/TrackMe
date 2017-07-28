@@ -15,26 +15,27 @@ import com.example.android.trackme.data.HabitDbHelper;
 
 public class EditorActivity extends AppCompatActivity {
 
+	/** EditText field to enter description of habit */
 	private EditText mHabitDesc;
+
+	/** EditText field to number of days the habit was completed */
 	private EditText mHabitDays;
-	/*private Button mHabitDaysIncrement;
-	private Button mHabitDaysDecrement;
-	private Button mDeleteHabit;*/
+
+	/** Database helper that will provide us access to the database */
 	private HabitDbHelper mDbHelper;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Setup UI
 		setContentView(R.layout.activity_editor);
 
 		// Find all relevant views that we will need to read user input from
 		mHabitDesc = (EditText) findViewById(R.id.edit_habit_desc);
 		mHabitDays = (EditText) findViewById(R.id.days_from_db_text);
-		/*mHabitDaysIncrement = (Button) findViewById(R.id.plus_button);
-		mHabitDaysDecrement = (Button) findViewById(R.id.minus_button);
-		mDeleteHabit = (Button) findViewById(R.id.delete_button);*/
 
-		// Setup access to db
+		// Setup access to database
 		mDbHelper = new HabitDbHelper(EditorActivity.this);
 
 		// Find activity trigger type
@@ -67,6 +68,7 @@ public class EditorActivity extends AppCompatActivity {
 
 		// Check on success of record insertion into table
 		if (rowId == -1) {
+			// Error while inserting record
 			Toast.makeText
 					(
 							EditorActivity.this,
@@ -75,6 +77,7 @@ public class EditorActivity extends AppCompatActivity {
 					)
 					.show();
 		} else {
+			// Record was inserted successfully
 			Toast.makeText
 					(
 							EditorActivity.this,

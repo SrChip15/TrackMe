@@ -20,12 +20,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+	/** Database helper that will provide us access to the database */
 	private HabitDbHelper mDbHelper;
+
+	/** List of habits */
 	private List<Habit> mHabitsList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Setup UI
 		setContentView(R.layout.activity_main);
 
 		// Empty text view hookup
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 		// and pass the context, which is the current activity.
 		mDbHelper = new HabitDbHelper(MainActivity.this);
 
-		// Initialize list
+		// Initialize list of habits
 		mHabitsList = new ArrayList<>();
 		makeHabitsList();
 
@@ -68,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
 		listView.setEmptyView(mEmptyView);
 	}
 
+	/**
+	 * Fetch all data from database and return the data as a cursor
+	 */
 	Cursor readFromDatabase() {
 		// Get readable instance of the database
 		SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -94,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
 		return cursor;
 	}
 
+	/**
+	 * Make a list of all habits present in the database
+	 */
 	private void makeHabitsList() {
 		Cursor cursor = readFromDatabase();
 		try {

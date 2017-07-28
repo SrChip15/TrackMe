@@ -12,10 +12,18 @@ import java.util.List;
 
 public class HabitListAdapter extends ArrayAdapter<Habit> {
 
+	/** Context of the parent activity */
 	private Context mContext;
+
+	/** List of habits */
 	private List<Habit> mHabitsList;
+
+	/** Layout inflater to inflate custom layout */
 	private LayoutInflater mInflater;
 
+	/**
+	 * Create new habit array adapter
+	 */
 	public HabitListAdapter(Context context, List<Habit> objects) {
 		super(context, 0, objects);
 		this.mContext = context;
@@ -23,11 +31,9 @@ public class HabitListAdapter extends ArrayAdapter<Habit> {
 		this.mInflater = LayoutInflater.from(context);
 	}
 
-	@Override
-	public int getCount() {
-		return mHabitsList.size();
-	}
-
+	/**
+	 * Implement custom view and inflate view
+	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
@@ -71,6 +77,4 @@ public class HabitListAdapter extends ArrayAdapter<Habit> {
 		// Return view
 		return convertView;
 	}
-
-
 }

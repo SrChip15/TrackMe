@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary color for the editor -->
     <color name="colorPrimary">#3F51B5</color>
+
+    <!-- Primary dark color for the editor -->
     <color name="colorPrimaryDark">#303F9F</color>
+
+    <!-- Accent color for UI controls like checkboxes and text fields -->
     <color name="colorAccent">#ff4081</color>
 
+    <!-- Dull/Dim background for empty state view for the app -->
     <color name="empty_view_dim">#bdbdbd</color>
 </resources>
