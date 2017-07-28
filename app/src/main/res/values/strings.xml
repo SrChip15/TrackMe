@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Track Me</string>
+    <string name="editor_activity_title_new_habit">New Habit</string>
+</resources>
