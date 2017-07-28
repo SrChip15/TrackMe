@@ -1,6 +1,7 @@
 package com.example.android.trackme;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.android.trackme.data.HabitContract.HabitEntry;
 import com.example.android.trackme.data.HabitDbHelper;
@@ -51,7 +53,31 @@ public class EditorActivity extends AppCompatActivity {
 		values.put(HabitEntry.COLUMN_COMPLETED_DAYS, habitDaysCompleted);
 
 		// Insert record into database
-		db.insert(HabitEntry.TABLE_NAME, null, values);
+		long rowId = db.insert(HabitEntry.TABLE_NAME, null, values);
+
+		// Check on success of recored insertion into table
+		if (rowId == -1) {
+			Toast.makeText
+					(
+							EditorActivity.this,
+							"Error creating new habit",
+							Toast.LENGTH_SHORT
+					)
+					.show();
+		} else {
+			Toast.makeText
+					(
+							EditorActivity.this,
+							"New habit created at row number " + rowId,
+							Toast.LENGTH_SHORT
+					)
+					.show();
+
+		}
+
+		// Intent to home
+		Intent intent = new Intent(EditorActivity.this, MainActivity.class);
+		startActivity(intent);
 
 	}
 
