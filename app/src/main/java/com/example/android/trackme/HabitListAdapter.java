@@ -77,4 +77,16 @@ public class HabitListAdapter extends ArrayAdapter<Habit> {
 		// Return view
 		return convertView;
 	}
+
+	/**
+	 * Flush the adapter's data set
+	 */
+	void flush() {
+		// Empty list
+		mHabitsList.clear();
+
+		// Transmit data set change to attached view
+		// Refreshes view to empty state
+		notifyDataSetChanged();
+	}
 }

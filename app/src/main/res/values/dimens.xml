@@ -5,4 +5,10 @@
 
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
+
+    <!-- Height of the days completed interface to -->
+    <dimen name="button_interface_height">64dp</dimen>
+
+    <!-- Height of first row of editor activity -->
+    <dimen name="habit_desc_label_container">56dp</dimen>
 </resources>

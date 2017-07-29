@@ -19,7 +19,7 @@ public class HabitDbHelper extends SQLiteOpenHelper {
 					HabitEntry.COLUMN_COMPLETED_DAYS + " INTEGER NOT NULL DEFAULT 0)";
 
 	/** SQL string to delete table */
-	private static final String SQL_DELETE_ENTRIES =
+	public static final String SQL_DELETE_ENTRIES =
 			"DROP TABLE IF EXISTS " + HabitEntry.TABLE_NAME;
 
 	/**

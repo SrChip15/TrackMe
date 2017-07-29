@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,11 +22,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-	/** Database helper that will provide us access to the database */
+	/**
+	 * Database helper that will provide us access to the database
+	 */
 	private HabitDbHelper mDbHelper;
 
-	/** List of habits */
+	/**
+	 * List of habits
+	 */
 	private List<Habit> mHabitsList;
+
+	private HabitListAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
 		ListView listView = (ListView) findViewById(R.id.list);
 
 		// Initialize adapter
-		HabitListAdapter adapter = new HabitListAdapter(MainActivity.this, mHabitsList);
+		mAdapter = new HabitListAdapter(MainActivity.this, mHabitsList);
 
 		// Set adapter for list view
-		listView.setAdapter(adapter);
+		listView.setAdapter(mAdapter);
 
 		// Set empty view when there are no habits
 		listView.setEmptyView(mEmptyView);
@@ -125,5 +133,30 @@ public class MainActivity extends AppCompatActivity {
 			// Close the cursor and release resources associated with the cursor
 			cursor.close();
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_delete_all_habits:
+				deleteAll();
+				mAdapter.flush();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void deleteAll() {
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+		// Delete the all contents of table
+		db.delete(HabitEntry.TABLE_NAME, null, null);
 	}
 }

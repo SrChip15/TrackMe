@@ -6,6 +6,7 @@
     android:padding="16dp"
     android:orientation="horizontal">
 
+    <!-- Display description of habit -->
     <TextView
         android:id="@+id/habit_desc_text"
         android:layout_width="0dp"
@@ -13,6 +14,7 @@
         android:layout_weight=".75"
         android:textAppearance="?android:textAppearanceMedium"/>
 
+    <!-- Display habit days completed -->
     <TextView
         android:id="@+id/habit_days_text"
         android:layout_width="0dp"

@@ -4,4 +4,12 @@
     <string name="empty_view_text">You can do this. Let\'s form new habits.</string>
     <string name="list_header_desc_string">Description of Habit</string>
     <string name="list_header_days_string">Days Completed</string>
+    <string name="save_habit_button">save habit</string>
+    <string name="delete_habit_button">delete habit</string>
+    <string name="increment_button">+</string>
+    <string name="default_days_completed_edit">0</string>
+    <string name="decrement_button">-</string>
+    <string name="days_completed_label_text">Days Completed:</string>
+    <string name="habit_desc_label_text">Description of habit:</string>
+    <string name="action_delete_all_habits">Delete all</string>
 </resources>

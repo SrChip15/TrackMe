@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/habit_desc_label_container">
 
+        <!-- Habit description label -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Description of habit: "
+            android:text="@string/habit_desc_label_text"
             android:textAppearance="?android:textAppearanceMedium"/>
 
+        <!-- User input for description of habit -->
         <EditText
             android:id="@+id/edit_habit_desc"
             android:layout_width="0dp"
@@ -26,26 +27,30 @@
 
     </LinearLayout>
 
+    <!-- Days completed interface -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp">
+        android:layout_height="@dimen/button_interface_height">
 
+        <!--Days completed label -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.5"
-            android:text="Days Completed: "
+            android:text="@string/days_completed_label_text"
             android:textAppearance="?android:textAppearanceMedium"/>
 
+        <!-- Decrement habit days completed -->
         <Button
             android:id="@+id/minus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="decrementHabitDays"
-            android:text="-"/>
+            android:text="@string/decrement_button"/>
 
+        <!-- Habit days completed from database for existing habit or default value of 0-->
         <EditText
             android:id="@+id/days_from_db_text"
             android:layout_width="0dp"
@@ -53,23 +58,26 @@
             android:layout_gravity="center"
             android:layout_weight="0.3"
             android:gravity="center"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="0"/>
+            android:text="@string/default_days_completed_edit"
+            android:textAppearance="?android:textAppearanceMedium"/>
 
+        <!-- Increment habit days completed -->
         <Button
             android:id="@+id/plus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="incrementHabitDays"
-            android:text="+"/>
+            android:text="@string/increment_button"/>
 
     </LinearLayout>
 
+    <!-- Button row container -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/button_interface_height">
 
+        <!-- Save habit button to save the newly created habit or edit existing habit -->
         <Button
             android:id="@+id/save_button"
             android:layout_width="0dp"
@@ -77,8 +85,9 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="saveHabit"
-            android:text="save habit"/>
+            android:text="@string/save_habit_button"/>
 
+        <!-- Delete existing habit -->
         <Button
             android:id="@+id/delete_button"
             android:layout_width="0dp"
@@ -86,7 +95,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="deleteHabit"
-            android:text="delete habit"/>
+            android:text="@string/delete_habit_button"/>
 
     </LinearLayout>
 
