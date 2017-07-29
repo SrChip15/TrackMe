@@ -32,7 +32,12 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	private List<Habit> mHabitsList;
 
+	/** Adapter for holding the habits data set */
 	private HabitListAdapter mAdapter;
+
+	private TextView mDescHeader;
+
+	private TextView mDaysHeader;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
 
 		// Initialize adapter
 		mAdapter = new HabitListAdapter(MainActivity.this, mHabitsList);
+
+		// Remove headers if empty state
+		mDescHeader= (TextView) findViewById(R.id.list_header_desc_text);
+		mDaysHeader= (TextView) findViewById(R.id.list_header_days_text);
+		if (mAdapter.isEmpty()) {
+			removeHeaders();
+		}
 
 		// Set adapter for list view
 		listView.setAdapter(mAdapter);
@@ -147,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 			case R.id.action_delete_all_habits:
 				deleteAll();
 				mAdapter.flush();
+				removeHeaders();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -158,5 +171,11 @@ public class MainActivity extends AppCompatActivity {
 
 		// Delete the all contents of table
 		db.delete(HabitEntry.TABLE_NAME, null, null);
+	}
+
+	private void removeHeaders() {
+		// Remove headers
+		mDescHeader.setVisibility(View.GONE);
+		mDaysHeader.setVisibility(View.GONE);
 	}
 }
