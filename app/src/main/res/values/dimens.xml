@@ -11,4 +11,5 @@
 
     <!-- Height of first row of editor activity -->
     <dimen name="habit_desc_label_container">56dp</dimen>
+    <dimen name="days_label_margin">8dp</dimen>
 </resources>

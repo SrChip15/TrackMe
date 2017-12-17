@@ -2,8 +2,8 @@
     <string name="app_name">Track Me</string>
     <string name="editor_activity_title_new_habit">New Habit</string>
     <string name="empty_view_text">You can do this. Let\'s form new habits.</string>
-    <string name="list_header_desc_string">Description of Habit</string>
-    <string name="list_header_days_string">Days Completed</string>
+    <string name="list_header_desc_string">Habit</string>
+    <string name="list_header_days_string">Days \nCompleted</string>
     <string name="save_habit_button">save habit</string>
     <string name="delete_habit_button">delete habit</string>
     <string name="increment_button">+</string>
