@@ -32,8 +32,8 @@ public class EditorActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_editor);
 
 		// Find all relevant views that we will need to read user input from
-		mHabitDesc = (EditText) findViewById(R.id.edit_habit_desc);
-		mHabitDays = (EditText) findViewById(R.id.days_from_db_text);
+		mHabitDesc = findViewById(R.id.edit_habit_desc);
+		mHabitDays = findViewById(R.id.days_from_db_text);
 
 		// Setup access to database
 		mDbHelper = new HabitDbHelper(EditorActivity.this);

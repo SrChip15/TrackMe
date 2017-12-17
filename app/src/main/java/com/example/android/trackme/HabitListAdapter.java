@@ -66,11 +66,11 @@ public class HabitListAdapter extends ArrayAdapter<Habit> {
 		Habit currentHabitItem = mHabitsList.get(position);
 
 		// Get TextView to display description of habit
-		TextView habitDescTextView = (TextView) convertView.findViewById(R.id.habit_desc_text);
+		TextView habitDescTextView = convertView.findViewById(R.id.habit_desc_text);
 		habitDescTextView.setText(currentHabitItem.getHabitDescription());
 
 		// Get TextView to display number of days the habit was completed
-		TextView daysCompletedTextView = (TextView) convertView.findViewById(R.id.habit_days_text);
+		TextView daysCompletedTextView = convertView.findViewById(R.id.habit_days_text);
 		String daysCompleted = String.valueOf(currentHabitItem.getHabitDaysCompleted());
 		daysCompletedTextView.setText(daysCompleted);
 

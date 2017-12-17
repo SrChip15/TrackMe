@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		// Empty text view hookup
-		TextView mEmptyView = (TextView) findViewById(R.id.empty_view);
+		TextView mEmptyView = findViewById(R.id.empty_view);
 		// Set text for empty view
 		mEmptyView.setText(R.string.empty_view_text);
 		// Position text
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 		makeHabitsList();
 
 		// Setup FAB to open EditorActivity
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -74,14 +74,14 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 		// Get the list view
-		ListView listView = (ListView) findViewById(R.id.list);
+		ListView listView = findViewById(R.id.list);
 
 		// Initialize adapter
 		mAdapter = new HabitListAdapter(MainActivity.this, mHabitsList);
 
 		// Remove headers if empty state
-		mDescHeader= (TextView) findViewById(R.id.list_header_desc_text);
-		mDaysHeader= (TextView) findViewById(R.id.list_header_days_text);
+		mDescHeader= findViewById(R.id.list_header_desc_text);
+		mDaysHeader= findViewById(R.id.list_header_days_text);
 		if (mAdapter.isEmpty()) {
 			removeHeaders();
 		}
