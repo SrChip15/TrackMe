@@ -5,9 +5,6 @@ The application helps an user to log and track habits that the user may wish to 
 screen and habit edit screen. The splash screen lists all the habits that the user has saved to the database with up-to-date 
 information. The habit edit screen lets the user enter the description of the habit and also increment the days that the user has performed the said habit.
 
-This app has been built to the specifications of the habit tracker app project rubric, which is part of the 
-Data Storage module of [Udacity's Android Basics Nanodegree program](https://www.udacity.com/course/android-basics-nanodegree-by-google--nd803).
-
 Objective
 ----
 
